@@ -1,17 +1,25 @@
-require('dotenv').config();
+require('dotenv').config(); // Carregar variáveis de ambiente do arquivo .env
 
 const express = require('express');
 const fetch = require('node-fetch');
+const cors = require('cors');
 
 const app = express();
 const PORT = 8081;
 
-const apiKey = process.env.API_KEY;
-const NEWS_API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+const apiKEY = process.env.API_KEY; 
+const url = `https://newsapi.org/v2/top-headlines?country=br&apiKey=${apiKEY}`;
+
+app.use(cors());
 
 app.get('/news', async (req, res) => {
   try {
-    const response = await fetch(NEWS_API_URL);
+    // Fazer a requisição à API
+    const response = await fetch(url);
+    console.log(url)
+    if (!response.ok) { // Verificar se a resposta da API é bem-sucedida
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
     res.json(data);
   } catch (error) {
