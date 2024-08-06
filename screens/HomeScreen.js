@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity, Linking, TextInput} from 'react-native';
 import { globalStyles } from '../styles/global';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -30,6 +32,10 @@ const HomeScreen = ({ navigation }) => {
     Linking.openURL(url).catch(err => console.error('An error occurred', err));
   };
 
+  const handleSearch = () => {
+    navigation.navigate('Resultado da Pesquisa', { searchQuery });
+  };
+
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -40,6 +46,17 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={globalStyles.container}>
+      <View style={globalStyles.search}>
+        <TextInput
+          style={globalStyles.input}
+          placeholder="Search for news..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <TouchableOpacity style={globalStyles.button} onPress={handleSearch}>
+        <Text style={globalStyles.buttonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList style={globalStyles.FlatList}
         data={articles}
         keyExtractor={(item) => item.url}
