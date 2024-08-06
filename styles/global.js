@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   header: {
@@ -52,4 +52,19 @@ export const globalStyles = StyleSheet.create({
     color: '#FFFFFF', // Cor do texto do botão
     fontSize: 16,
   },
-});
+  suggestionsContainer: {
+    zIndex: 3,
+    width: '90%',  
+    backgroundColor: '#dfdfdf',
+    borderRadius: 10,
+    zIndex: 3,
+    padding: 10,
+    marginLeft: '5%',
+  },
+  recentSearches: {
+    fontFamily: 'Arial',
+    fontSize: 14,
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  });

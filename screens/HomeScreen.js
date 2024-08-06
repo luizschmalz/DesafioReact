@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity, Linking, TextInput} from 'react-native';
+import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity, Linking, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [recentSearches, setRecentSearches] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -24,16 +27,39 @@ const HomeScreen = ({ navigation }) => {
         setLoading(false);
       }
     };
-
+    
     fetchNews();
+
+    const loadRecentSearches = async () => {
+      const searches = await AsyncStorage.getItem('recentSearches');
+      if (searches) {
+        setRecentSearches(JSON.parse(searches));
+      }
+    };
+
+    loadRecentSearches();
   }, []);
 
   const openUrl = (url) => {
     Linking.openURL(url).catch(err => console.error('An error occurred', err));
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    if (searchQuery.trim() === '') return;
+
+    const newSearches = [searchQuery, ...recentSearches.filter(item => item !== searchQuery)];
+    setRecentSearches(newSearches);
+    try {
+      await AsyncStorage.setItem('recentSearches', JSON.stringify(newSearches));
+    } catch (error) {
+      console.error("Failed to save recent searches to AsyncStorage", error);
+    }
+    setIsFocused(false); 
     navigation.navigate('Resultado da Pesquisa', { searchQuery });
+  };
+
+  const handleRecentSearch = (query) => {
+    navigation.navigate('Resultado da Pesquisa', { searchQuery: query });
   };
 
   if (loading) {
@@ -52,12 +78,28 @@ const HomeScreen = ({ navigation }) => {
           placeholder="Search for news..."
           value={searchQuery}
           onChangeText={setSearchQuery}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         <TouchableOpacity style={globalStyles.button} onPress={handleSearch}>
-        <Text style={globalStyles.buttonText}>Search</Text>
+          <Text style={globalStyles.buttonText}>Search</Text>
         </TouchableOpacity>
       </View>
-      <FlatList style={globalStyles.FlatList}
+      {isFocused && (
+        <View style={globalStyles.suggestionsContainer}>
+          <FlatList
+            data={recentSearches}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View>
+                <Text style={globalStyles.recentSearches} onPress={() => handleRecentSearch(item)}>{item}</Text>
+              </View>
+            )}
+          />
+        </View>
+      )}
+      <FlatList
+        style={globalStyles.FlatList}
         data={articles}
         keyExtractor={(item) => item.url}
         renderItem={({ item }) => (
