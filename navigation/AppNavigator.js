@@ -6,6 +6,7 @@ import { globalStyles } from '../styles/global';
 import SearchScreen from '../screens/SearchScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import DashboardScreen from '../screens/DashBoardScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,10 @@ const AppNavigator = () => (
       options={{headerTitleStyle: globalStyles.header,
         headerTitleAlign: 'center',
       }} />
+      <Stack.Screen name="Dashboard" component={DashboardScreen}
+      options={{headerTitleStyle: globalStyles.header,
+        headerTitleAlign: 'center',
+      }}/>
     </Stack.Navigator>
   </NavigationContainer>
 );
