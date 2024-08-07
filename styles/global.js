@@ -45,7 +45,7 @@ export const globalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#FFFFFF', // Cor do texto do botão
+    color: '#FFFFFF',
     fontSize: 16,
   },
   suggestionsContainer: {
@@ -72,5 +72,39 @@ export const globalStyles = StyleSheet.create({
   },
   highlighted:{
     fontWeight: 'bold',
+  },
+  loginText: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: 20,
+    marginTop: '5%',
+    borderColor: '#ccc', 
+    borderWidth: 1,     
+    borderRadius: 5,     
+    padding: 10,         
+    backgroundColor: '#dfdfdf', 
+   
+  },
+  loginScreen :{
+    marginTop: '5%',
+    width: '90%',
+    marginLeft: '5%',
+    padding: 20,
+    backgroundColor: '#d5d5d5',
+  },
+  buttonLogin: {
+    backgroundColor: '#007BFF', 
+    borderRadius: 5,       
+    padding: 10,                    
+    alignItems: 'center',  
+    color: '#FFFFFF',  
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 500,
+  },
+  changePage: {
+    textAlign: 'center',
+    color: 'blue',
+    padding: 20,    
   }
   });

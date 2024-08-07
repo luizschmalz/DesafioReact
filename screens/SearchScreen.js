@@ -10,9 +10,13 @@ const SearchScreen = ({ route }) => {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
+  
     const searchNews = async (searchQuery) => {
       setLoading(true);
       try {
+        if (!searchQuery) {
+          throw new Error('Search query is empty');
+        }
         const response = await fetch(`http://localhost:8081/especificnews?q=${encodeURIComponent(searchQuery)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -25,9 +29,11 @@ const SearchScreen = ({ route }) => {
         setLoading(false);
       }
     };
-
-    searchNews(searchQuery);
-  }, []);
+  
+    if (searchQuery) {
+      searchNews(searchQuery);
+    }
+  }, [searchQuery]);
 
   const openUrl = (url) => {
     Linking.openURL(url).catch(err => console.error('An error occurred', err));
@@ -49,7 +55,7 @@ const SearchScreen = ({ route }) => {
             <Text>{new Date(item.publishedAt).toLocaleDateString()}</Text>
             <Text>{item.source.name}</Text>
             <TouchableOpacity onPress={() => openUrl(item.url)}>
-              <Text style={globalStyles.linkText}>Leia mais</Text>
+              <Text>Leia mais</Text>
             </TouchableOpacity>
           </View>
         )}
