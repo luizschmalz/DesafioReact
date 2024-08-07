@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity, Linking, TextInput } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, Linking, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -98,6 +98,11 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
       )}
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+          <Text style={globalStyles.dashBoardbutton}>Dashboard</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
         style={globalStyles.FlatList}
         data={articles}

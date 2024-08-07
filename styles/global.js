@@ -1,4 +1,5 @@
 import {StyleSheet } from 'react-native';
+import { LineChart } from 'recharts';
 
 export const globalStyles = StyleSheet.create({
   container: {
@@ -39,7 +40,7 @@ export const globalStyles = StyleSheet.create({
   button: {
     width: '25%',
     marginLeft: '5%',
-    backgroundColor: '#007BFF', 
+    backgroundColor: '#53c96b', 
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -106,5 +107,50 @@ export const globalStyles = StyleSheet.create({
     textAlign: 'center',
     color: 'blue',
     padding: 20,    
-  }
+  },
+  dashBoardbutton: {
+    backgroundColor: '#53c96b', 
+    color: '#FFFFFF',
+    borderRadius: 5,       
+    padding: 10,                      
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 500,
+    width: '80%',
+    marginLeft: '10%',
+  },
+  dashboardContainer: {
+    padding: 20,
+    backgroundColor: '#d5d5d5',
+    flex: 1,
+    width: '90%',
+    marginLeft: '5%',
+    marginTop: '5%',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  dashboardTittle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  dashboardSubTittle: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  dashboardGen: { 
+    backgroundColor: '#53c96b', 
+    color: '#FFFFFF',
+    borderRadius: 5,       
+    padding: 10,                      
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 500,
+    marginTop: 20,
+  },
+  lineChart: {
+    width: '90%',
+    marginLeft: '5%',
+  },
   });
