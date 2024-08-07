@@ -104,10 +104,10 @@ const HomeScreen = ({ navigation }) => {
         keyExtractor={(item) => item.url}
         renderItem={({ item }) => (
           <View style={globalStyles.articleContainer}>
-            {item.urlToImage && <Image source={{ uri: item.urlToImage }} style={globalStyles.image} />}
             <Text style={globalStyles.title}>{item.title}</Text>
             <Text>{item.description}</Text>
             <Text>{new Date(item.publishedAt).toLocaleDateString()}</Text>
+            <Text>{item.source.name}</Text>
             <TouchableOpacity onPress={() => openUrl(item.url)}>
               <Text style={globalStyles.linkText}>Leia mais</Text>
             </TouchableOpacity>
