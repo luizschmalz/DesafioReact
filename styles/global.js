@@ -1,10 +1,6 @@
 import {StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
-  header: {
-    fontWeight: '700',
-    fontSize: 20,
-  },
   container: {
     flex: 1,
     padding: 20,
@@ -67,4 +63,14 @@ export const globalStyles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
   },
+  resultsSearch: {
+    width: '90%',
+    marginLeft: '5%',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 500,
+  },
+  highlighted:{
+    fontWeight: 'bold',
+  }
   });
