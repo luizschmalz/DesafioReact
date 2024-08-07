@@ -18,10 +18,8 @@ app.listen(PORT, () => {
 
 app.get('/news', async (req, res) => {
   try {
-    // Fazer a requisição à API
     const response = await fetch(url);
-    console.log(url)
-    if (!response.ok) { // Verificar se a resposta da API é bem-sucedida
+    if (!response.ok) { 
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
@@ -35,7 +33,6 @@ app.get('/news', async (req, res) => {
 
 app.get('/especificnews', async (req, res) => {
   const searchQuery = req.query.q;
-  
   if (!searchQuery) {
     return res.status(400).json({ error: 'Missing query parameter `q`' });
   }

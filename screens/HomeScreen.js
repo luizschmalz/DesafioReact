@@ -109,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
             <Text>{new Date(item.publishedAt).toLocaleDateString()}</Text>
             <Text>{item.source.name}</Text>
             <TouchableOpacity onPress={() => openUrl(item.url)}>
-              <Text style={globalStyles.linkText}>Leia mais</Text>
+              <Text>Leia mais</Text>
             </TouchableOpacity>
           </View>
         )}
